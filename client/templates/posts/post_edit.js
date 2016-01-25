@@ -1,6 +1,7 @@
 Template.postEdit.onCreated(function() {
   Session.set('postEditErrors', {});
 });
+
 Template.postEdit.helpers({
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];
@@ -9,7 +10,6 @@ Template.postEdit.helpers({
     return !!Session.get('postEditErrors')[field] ? 'has-error' : '';
   }
 });
-
 
 Template.postEdit.events({
   'submit form': function(e) {
@@ -22,7 +22,6 @@ Template.postEdit.events({
       title: $(e.target).find('[name=title]').val()
     }
 
-    
     var errors = validatePost(postProperties);
     if (errors.title || errors.url)
       return Session.set('postEditErrors', errors);
@@ -43,7 +42,7 @@ Template.postEdit.events({
     if (confirm("Delete this post?")) {
       var currentPostId = this._id;
       Posts.remove(currentPostId);
-      Router.go('postsList');
+      Router.go('home');
     }
   }
 });
